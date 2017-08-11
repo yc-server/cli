@@ -1,0 +1,28 @@
+{
+  "name": "@ycs/cli",
+  "version": "0.0.1",
+  "description": "cli",
+  "license": "MIT",
+  "repository": "",
+  "author": {
+    "name": "Yu Chen",
+    "email": "yu.chen@live.ie",
+    "url": ""
+  },
+  "keywords": [
+    ""
+  ],
+  "files": [
+    "templates"
+  ],
+  "bin": {
+    "ycs": "./bin/index.sh"
+  },
+  "preferGlobal": true,
+  "scripts": {
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
