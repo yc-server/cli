@@ -16,13 +16,11 @@ export default Model.routes(
     description: 'List documents',
     consumes: ['application/json', 'application/xml'],
     produces: ['application/json', 'application/xml'],
-    parameters: [Model.docSchema.paginateOptions],
+    parameters: [Model.docSchema.paginateOptions, Model.docSchema.filters],
     responses: {
       200: {
         description: 'Successful operation',
-        schema: Model.docSchema.paginateResultWithOptions({
-          exclude: '_id',
-        }),
+        schema: Model.docSchema.paginateResult,
       },
       '4xx': Model.docSchema.response4xx,
       '5xx': Model.docSchema.response5xx,
