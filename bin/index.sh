@@ -75,10 +75,15 @@ addPlugin() {
 
     if [ -e src/plugins/$1.ts ]; then
         echo Plugin already added | _color_ red
-    else
-        mkdir -p src/plugins
-        cp node_modules/ycs-plugin-$1/default_config src/plugins/$1.ts
-        echo src/plugins/$1.ts | _color_ green
+        return
+    fi
+
+    mkdir -p src/plugins
+    cp node_modules/ycs-plugin-$1/default_config src/plugins/$1.ts
+    echo src/plugins/$1.ts | _color_ green
+    
+    if [ -e node_modules/ycs-plugin-$1/setup.sh ]; then
+        sh node_modules/ycs-plugin-$1/setup.sh
     fi
 }
 
