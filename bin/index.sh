@@ -114,7 +114,7 @@ addAPI() {
         cp $templatePath/rest/controller.ts $targetPath/controller.ts
         sedString=s/\<ENDPOINT\>/${endpoint//\//\\\/}/g
         sed $sedString $templatePath/rest/router.ts > $targetPath/router.ts
-        sedString=s/\<MODEL\>/${endpoint//\//\\\/}/g
+        sedString=s/\<MODEL\>/${model//\//\\\/}/g
         sed $sedString $templatePath/rest/model.ts > $targetPath/model.ts
         echo $targetPath/controller.ts | _color_ green
         echo $targetPath/model.ts | _color_ green
