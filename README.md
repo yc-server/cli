@@ -34,7 +34,7 @@ ycs help
 
 > Add a restful API endpoint
 ```
-ycs add api $apiName
+ycs add api
 ```
 
 > Remove a restful API
@@ -52,4 +52,16 @@ ycs add plugin $pluginName [$version]
 > Remove a plugin
 ```
 ycs rm plugin $pluginName [$version]
+```
+
+## Rest Admin
+
+> Add a Rest Admin
+```
+ycs add rest-admin
+```
+
+> Remove a Rest Admin
+```
+ycs rm rest-admin $modelName
 ```

@@ -34,10 +34,12 @@ help() {
     echo -e '  ' ycs start \$project_dir
     echo -e '  ' ycs serve
     echo -e '  ' ycs build
-    echo -e '  ' ycs add api \$apiName
+    echo -e '  ' ycs add api
     echo -e '  ' ycs rm api \$apiName
     echo -e '  ' ycs add plugin \$pluginName [\$version]
     echo -e '  ' ycs rm plugin \$pluginName [\$version]
+    echo -e '  ' ycs add rest-admin
+    echo -e '  ' ycs rm rest-admin \$modelName
     echo
     echo More info at https://github.com/yc-server/cli.git
 }
@@ -122,6 +124,57 @@ addAPI() {
     fi
 }
 
+addRestAdmin() {
+    local model=sample
+    printf "Model ($model): "
+    read x
+    if [ "$x" != "" ]; then
+        model=$x
+    fi
+
+    local endpoint=/api/${model}s
+    printf "Endpoint ($endpoint): "
+    read x
+    if [ "$x" != "" ]; then
+        endpoint=$x
+    fi
+
+    targetPath=src/app/$model
+    if [ -e $targetPath ]; then
+        echo Rest Admin $model already exists | _color_ red
+        return
+    fi
+
+    templatePath=`npm root -g`/@ycs/cli/templates
+    modelCapitalized="$(tr '[:lower:]' '[:upper:]' <<< ${model:0:1})${model:1}"
+    if [ -e $templatePath ]; then
+        mkdir -p $targetPath
+        cp $templatePath/rest-admin/component.html $targetPath/$model.component.html
+        cp $templatePath/rest-admin/component.scss $targetPath/$model.component.scss
+        cp $templatePath/rest-admin/component.ts $targetPath/$model.component.ts
+        cp $templatePath/rest-admin/routing.module.ts $targetPath/$model-routing.module.ts
+        sedEndpoint=s/\<ENDPOINT\>/${endpoint//\//\\\/}/g
+        sed $sedEndpoint $templatePath/rest-admin/component.ts > $targetPath/$model.component.tmp.1.ts
+        sedModel=s/\<MODEL\>/${model//\//\\\/}/g
+        sed $sedModel $templatePath/rest-admin/module.ts > $targetPath/$model.module.tmp.2.ts
+        sed $sedModel $targetPath/$model.component.tmp.1.ts > $targetPath/$model.component.tmp.2.ts
+        sed $sedModel $templatePath/rest-admin/routing.module.ts > $targetPath/$model-routing.module.tmp.2.ts
+        sedModelCapitalized=s/\<MODEL_CAPITALIZED\>/${modelCapitalized//\//\\\/}/g
+        sed $sedModelCapitalized $targetPath/$model.module.tmp.2.ts > $targetPath/$model.module.ts
+        sed $sedModelCapitalized $targetPath/$model.component.tmp.2.ts > $targetPath/$model.component.ts
+        sed $sedModelCapitalized $targetPath/$model-routing.module.tmp.2.ts > $targetPath/$model-routing.module.ts
+        rm $targetPath/$model.component.tmp.1.ts
+        rm $targetPath/$model.module.tmp.2.ts
+        rm $targetPath/$model.component.tmp.2.ts
+        rm $targetPath/$model-routing.module.tmp.2.ts
+        echo $targetPath/$model.component.html | _color_ green
+        echo $targetPath/$model.component.scss | _color_ green
+        echo $targetPath/$model.component.ts | _color_ green
+        echo $targetPath/$model.module.ts | _color_ green
+        echo $targetPath/$model-routing.module.ts | _color_ green
+    fi
+}
+
 add() {
     case $1 in
         "plugin" )
@@ -130,6 +183,9 @@ add() {
         "api" )
             shift
             addAPI $@;;
+        "rest-admin" )
+            shift
+            addRestAdmin $@;;
         * )
             help;;
     esac
@@ -161,6 +217,16 @@ removeAPI() {
     rm -rf src/api/$1
 }
 
+removeRestAdmin() {
+    if [ "$1" = "" ]; then
+        echo Usage: ycs rm rest-admin \$modelName | _color_ cyan
+        return
+    fi
+
+    echo rm -rf src/app/$1 | _color_ yellow
+    rm -rf src/app/$1
+}
+
 remove() {
     case $1 in
         "plugin" )
@@ -169,12 +235,19 @@ remove() {
         "api" )
             shift
             removeAPI $@;;
+        "rest-admin" )
+            shift
+            removeRestAdmin $@;;
         * )
             help;;
     esac
 }
 
 case $1 in
+    "-v" )
+        echo 0.2.2;;
+    "--version" )
+        echo 0.2.2;;
     "start" )
         shift
         start $@;;
