@@ -1,6 +1,6 @@
 {
   "name": "@ycs/cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ycs cli tool",
   "license": "MIT",
   "repository": "https://github.com/yc-server/cli.git",
@@ -43,6 +43,7 @@
     "inquirer": "^4.0.1",
     "lodash": "^4.17.4",
     "pluralize": "^7.0.0",
+    "request": "^2.34",
     "request-promise": "^4.2.2",
     "rimraf": "^2.0.0"
   },
