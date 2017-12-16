@@ -56,10 +56,13 @@ export async function remove(flags: any) {
       type: 'checkbox',
       name: 'plugins',
       choices: exists,
+      default: [],
       message: colors.red('Removing plugins'),
     },
   ]);
   flags.plugins = answers.plugins;
+
+  if(!flags.plugins.length) return false;
 
   try {
     // yarn
