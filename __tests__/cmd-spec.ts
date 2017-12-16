@@ -12,7 +12,7 @@ describe('Cmd', () => {
     } catch (e) {
       err = e;
     }
-    expect(err.message).toBe('ls process exited with code 1');
+    expect(err.message).toMatch(/ls process exited with code/);
   });
   it('should throw an error', async () => {
     let err;
