@@ -29,8 +29,8 @@ jest.mock('fs', () => {
 jest.mock('request-promise', () => {
   return {
     get: jest.fn(),
-  }
-})
+  };
+});
 
 console.log = jest.fn();
 console.error = jest.fn();
@@ -38,9 +38,9 @@ console.error = jest.fn();
 describe('New plugin', () => {
   (rp as any).get.mockImplementation(() => {
     return Promise.resolve([
-      { name: 'ycs-plugin-a'},
-      { name: 'ycs-plugin-b'},
-      { name: 'ycs-plugin-c'},
+      { name: 'ycs-plugin-a' },
+      { name: 'ycs-plugin-b' },
+      { name: 'ycs-plugin-c' },
     ]);
   });
   it('should add a plugin', async () => {
@@ -53,7 +53,9 @@ describe('New plugin', () => {
     const flags = { pluginAdd: true };
     (inquirer as any).setAnswers({ plugin: 'a' });
     (fs as any).existsSync.mockImplementationOnce(() => true);
-    (fse as any).readdir.mockImplementationOnce(() => Promise.resolve(['b.ts', 'c.ts']));
+    (fse as any).readdir.mockImplementationOnce(() =>
+      Promise.resolve(['b.ts', 'c.ts'])
+    );
     const res = await add(flags);
     expect(res).toBe(true);
   });
@@ -67,7 +69,6 @@ describe('New plugin', () => {
     expect(res).toBe(false);
   });
 });
-
 
 describe('Remove plugin', () => {
   it('should remove a plugin', async () => {

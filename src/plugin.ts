@@ -62,25 +62,28 @@ export async function remove(flags: any) {
   ]);
   flags.plugins = answers.plugins;
 
-  if(!flags.plugins.length) return false;
+  if (!flags.plugins.length) return false;
 
   try {
     // yarn
-    const plugins =
-      flags.plugins
-        .map((x: string) => 'ycs-plugin-' + x)
-        .join(' ');
+    const plugins = flags.plugins
+      .map((x: string) => 'ycs-plugin-' + x)
+      .join(' ');
     await run(`yarn remove ${plugins}`, {
       cwd: `${cwd}`,
       stdio: 'inherit',
     });
 
     // remove config
-    for(const plugin of flags.plugins)
+    for (const plugin of flags.plugins)
       await fse.remove(`${cwd}/src/plugins/${plugin}.ts`);
 
     // success
-    console.log('Plugin', colors.red(flags.plugins.join(' ')), 'has been removed');
+    console.log(
+      'Plugin',
+      colors.red(flags.plugins.join(' ')),
+      'has been removed'
+    );
     return true;
   } catch (e) {
     console.error(e);
