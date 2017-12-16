@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+
+const ycs = require('../lib/index');
+
+ycs.startProgram(process.argv);

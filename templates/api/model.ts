@@ -12,7 +12,7 @@ const schema = new Schema(
 );
 
 export default Model({
-  name: '<MODEL>',
+  name: '<%=model%>',
   auth: false,
   schema,
 });
