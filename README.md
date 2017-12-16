@@ -1,3 +1,12 @@
+[![Build Status](https://travis-ci.org/yc-server/cli.svg?branch=master)](https://travis-ci.org/yc-server/cli.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/yc-server/cli/badge.svg?branch=master)](https://coveralls.io/github/yc-server/cli?branch=master)
+[![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
+
+# Introduction
+This is a cli tool for Ycs project.
+More info about [@ycs-core](https://github.com/yc-server/core)
+To see the project structure here [@ycs-base](https://github.com/yc-server/base)
+
 # Installation
 ```
 npm i -g @ycs/cli
@@ -5,63 +14,48 @@ npm i -g @ycs/cli
 
 # Usage
 
-> Initialize project
-```
-ycs start $project_dir
-```
-
-> Run local server
-```
-ycs serve
-```
-
-> Build project
-```
-ycs build
-```
-
-> Deploy project
-```
-ycs deploy
-```
-
 > Help
 ```
-ycs help
+ycs --help
+```
+
+> Initialize project
+```
+ycs --new
 ```
 
 ## Restful API
 
 > Add a restful API endpoint
 ```
-ycs add api
-```
-
-> Remove a restful API
-```
-ycs rm api $apiName
+ycs --api-add
 ```
 
 ## Plugins
 
 > Add a plugin
 ```
-ycs add plugin $pluginName [$version]
+ycs --plugin-add
 ```
 
 > Remove a plugin
 ```
-ycs rm plugin $pluginName [$version]
+ycs --plugin-remove
 ```
 
-## Rest Admin
+## Test and deploy
 
-> Add a Rest Admin
+> Run local server
 ```
-ycs add rest-admin
+npm run serve
 ```
 
-> Remove a Rest Admin
+> Build project
 ```
-ycs rm rest-admin $modelName
+npm run build
+```
+
+> Deploy project
+```
+npm run deploy
 ```
