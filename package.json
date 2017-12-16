@@ -9,11 +9,16 @@
     "email": "",
     "url": ""
   },
+  "bin": {
+    "ycs": "./bin/ycs"
+  },
   "keywords": [
     ""
   ],
   "files": [
-    "lib"
+    "lib",
+    "bin",
+    "templates"
   ],
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
