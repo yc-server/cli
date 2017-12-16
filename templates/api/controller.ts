@@ -5,7 +5,7 @@ import { response } from '@ycs/core/lib/response';
 import <%=modelUppercase%> from './model';
 
 class Controller {
-  // Gets a list of <%=modeUppercasePlural%>
+  // Gets a list of <%=modelUppercasePlural%>
   public index = async (ctx: IContext) => {
     try {
       const paginateResult = await paginate(<%=modelUppercase%>, ctx);

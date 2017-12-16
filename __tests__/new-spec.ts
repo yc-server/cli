@@ -10,13 +10,20 @@ jest.mock('../src/cmd.ts', () => {
 });
 
 jest.mock('inquirer');
-jest.mock('fs-extra');
+jest.mock('fs-extra', () => {
+  return {
+    remove: jest.fn(),
+  };
+});
 
 jest.mock('fs', () => {
   return {
     existsSync: jest.fn(),
   };
 });
+
+console.log = jest.fn();
+console.error = jest.fn();
 
 describe('New project', () => {
   it('should create a project', async () => {

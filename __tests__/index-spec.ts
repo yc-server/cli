@@ -7,6 +7,19 @@ jest.mock('../src/new.ts', () => {
   };
 });
 
+jest.mock('../src/api.ts', () => {
+  return {
+    add: flags => flags,
+  };
+});
+
+jest.mock('../src/plugin.ts', () => {
+  return {
+    add: flags => flags,
+    remove: flags => flags,
+  };
+});
+
 describe('Index', () => {
   it('should have startProgram available', () => {
     expect(index.startProgram).toBeTruthy();
@@ -21,6 +34,24 @@ describe('Index', () => {
     ).toMatchObject({
       new: 'helloWorld',
       n: 'helloWorld',
+    });
+  });
+  it('should test new api', () => {
+    expect(index.startProgram(['node', 'ycs', '-a'])).toMatchObject({
+      apiAdd: true,
+      a: true,
+    });
+  });
+  it('should add new plugin', () => {
+    expect(index.startProgram(['node', 'ycs', '-p'])).toMatchObject({
+      pluginAdd: true,
+      p: true,
+    });
+  });
+  it('should remove a plugin', () => {
+    expect(index.startProgram(['node', 'ycs', '-P'])).toMatchObject({
+      pluginRemove: true,
+      P: true,
     });
   });
   it('should return flags', () => {

@@ -12,9 +12,12 @@ export function prompt(questions: inquirer.Question[]): Promise<inquirer.Answers
     if (!when) {
       continue;
     }
+    if(q.default) {
+      answers[q.name] = isFunction(q.default) ? q.default(answers) : q.default;
+    }
+    if(q.validate) q.validate(db.answers[q.name], answers);
     const message = isFunction(q.message) ? (q as any).message(answers) : q.message;
     answers[q.name] = db.answers[q.name];
-    console.log(message, answers[q.name]);
   }
   return Promise.resolve(answers);
 }
