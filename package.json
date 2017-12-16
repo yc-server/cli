@@ -1,13 +1,13 @@
 {
-  "name": "cli",
-  "version": "0.0.0",
-  "description": "cli",
+  "name": "@ycs/cli",
+  "version": "1.0.0",
+  "description": "Ycs cli tool",
   "license": "MIT",
-  "repository": "",
+  "repository": "https://github.com/yc-server/cli.git",
   "author": {
-    "name": "",
-    "email": "",
-    "url": ""
+    "name": "Yu Chen",
+    "email": "yu.chen@live.ie",
+    "url": "https://github.com/kuyoonjo"
   },
   "bin": {
     "ycs": "./bin/ycs"
