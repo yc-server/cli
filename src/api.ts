@@ -54,8 +54,6 @@ export async function add(flags: any) {
       __dirname + '/../templates/api/router.ts'
     );
 
-    console.log(modelTmp.toString());
-
     // prepare options
     const modelUppercase = lodash.capitalize(flags.model);
     const options: any = {
